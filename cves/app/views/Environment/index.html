@@ -1,0 +1,66 @@
+#{include 'Application/top_head.html'/} #{include
+'Application/top_nav.html'/}
+
+<div class="container">
+<!-- 	<select data-placeholder="Choose aggregation rule..."
+		style="width: 300px;" class="chzn-select" id="aggrRules">
+		<option>Choose aggregation rule...</option>
+	</select>
+	<hr> -->
+	<h4>Environments</h4>
+	<div  id="list-all-row">
+		<br/>
+			#{table-declare tableName:'envTable' /}
+			<thead>
+				<tr>
+					<th>No.</th>
+					<th>Environment</th>
+					<th>Status</th>
+					<th>Running Job</th>
+					<th>OpState</th>
+					<th>Modified by</th>
+					<th>Last Modified</th>
+
+				</tr>
+			</thead>
+			<tbody>
+				#{list items:envList, as:'obj'}
+				<tr>
+					<td><span>${obj_index}</span></td>
+					<td><a target=_blank href='https://github.scm.corp.ebay.com/SBE/cassini-qe/blob/master/scripts/environment/${obj.getName()}-topology.csv'>${obj.getName()}</a></td>
+					<td><span class='status'>${obj.getIsInUse()}</span></td>
+					<td><span>${obj.getDesc()}</span></td>
+					<td><span class='opstate'>${obj.getIsActive()}</span></td>
+					<td><span>${obj.getModifiedBy()}</span></td>
+					<td><span>${obj.getModificationTime()}</span></td>
+				</tr>
+				#{/list}
+			</tbody>
+		</table>
+
+	</div>	
+	<script>
+	$(document).ready(function(){
+		$('#envTable span.opstate').each(function(){
+	        if ($(this).text() == '1') {
+	        	$(this).addClass("alert-success");
+	            $(this).text('healthy');
+	        }
+	        else {
+	        	$(this).addClass("alert-error");
+	            $(this).text('maintenance');
+	        }
+	    });	
+		$('#envTable span.status').each(function(){
+	        if ($(this).text() == '1') {
+	        	$(this).addClass("label label-warning");
+	            $(this).text('busy');
+	        }
+	        else {
+	        	$(this).addClass("label label-success");
+	            $(this).text('idle');
+	        }
+	    });	
+	});
+</script>
+	#{include 'Application/footer.html'/}

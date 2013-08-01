@@ -1,0 +1,223 @@
+#{include 'Application/top_head.html'/} 
+#{include 'Application/top_nav.html'/}
+#{include 'Application/index.html'/}
+
+
+<div class="container">
+
+	<div class="span6">
+
+		</p>
+		<button id="open-wizard" class="btn btn-primary">Automan Wizard</button>
+	</div>
+
+	<div class="wizard" id="wizard-commands">
+		<h1>Invoke CI Pipeline[UNDER DEVELOPMENT]</h1>
+
+		<div class="wizard-card" data-cardname="name">
+			<h3>Select Environment</h3>
+
+			<div class="wizard-input-section">
+				<p>Select the testing environment.</p>
+
+				<select data-placeholder="Target pool" style="width: 350px;"
+					class="chzn-select" id="target_nodes">
+					<option value=""></option>
+
+				</select>
+
+			</div>
+		</div>
+
+		<div class="wizard-card" data-onload=""
+			data-cardname="dcn_select_requests">
+			<h3>Select Version</h3>
+
+			<div class="wizard-input-section">
+				<p>Select Products' version.</p>
+
+				<select data-placeholder="Version" style="width: 350px;"
+					class="chzn-select" id="commands">
+					<option value=""></option>
+
+				</select>
+
+			</div>
+		</div>
+
+		<div class="wizard-card" data-cardname="dcn_send_requests">
+			<h3>Invoke Pipeline</h3>
+
+			<div class="wizard-input-section">
+				<p>Now will (1)Build product if required; (2)Build index in
+					Hadoop cluster; (3)Deploy software and index to query nodes; (4)Run
+					regression tests</p>
+			</div>
+		</div>
+
+		<div class="wizard-error">
+			<div class="alert alert-error">
+				<strong>There was a problem</strong> with your submission. Please
+				correct the errors and re-submit.
+			</div>
+		</div>
+
+		<div class="wizard-failure">
+			<div class="alert alert-error">
+				<strong>There was a problem</strong> submitting the form. Please try
+				again in a minute.
+			</div>
+		</div>
+
+		<div class="wizard-success" data-cardname="dcn_success">
+			<div class="alert alert-success">
+				<span class="create-server-name"></span> Request was sent <strong>successfully.</strong>
+			</div>
+
+			<div class="btn-toolbar" id="response_btngroup"></div>
+
+			<br />
+
+			<div class="btn-toolbar" id="click_btngroup">
+				<a class="btn btn-success create-another-server">Send another
+					request</a> <a class="btn btn-success im-done">Done</a>
+			</div>
+		</div>
+
+	</div>
+
+</div>
+
+<script type="text/javascript">
+	function setServerName(card) {
+		var host = $("#new-server-fqdn").val();
+		var name = $("#new-server-name").val();
+		var displayName = host;
+
+		if (name) {
+			displayName = name + " (" + host + ")";
+		}
+		;
+
+		card.wizard.setSubtitle(displayName);
+		card.wizard.el.find(".create-server-name").text(displayName);
+	}
+
+	$(function() {
+		//$.fn.wizard.logging = true;
+
+		var wizard = $("#wizard-commands").wizard();
+
+		$(".chzn-select").chosen();
+
+		$("#target_nodes").trigger("liszt:updated");
+
+		$("#commands").trigger("liszt:updated");
+
+		wizard.el.find(".wizard-ns-select").change(function() {
+			wizard.el.find(".wizard-ns-detail").show();
+		});
+
+		wizard.el.find(".create-server-service-list").change(function() {
+			var noOption = $(this).find("option:selected").length == 0;
+			wizard.getCard(this).toggleAlert(null, noOption);
+		});
+
+		wizard.cards["name"].on("validated", function(card) {
+			var hostname = card.el.find("#new-server-fqdn").val();
+		});
+
+		wizard.cards["dcn_send_requests"]
+				.on(
+						"validated",
+						function(card) {
+
+							var nodeGroupType = $("#target_nodes").val()
+							var agentCommandType = $("#commands").val()
+							var button1 = "<a class=\"btn btn-info btn-middle \" target=\"_blank\" href=\"/agents/getAgentData?nodeGroupType="
+									+ nodeGroupType
+									+ "&agentCommandType="
+									+ agentCommandType + "\">Response data</a>"
+							var button2 = "<a class=\"btn btn-info btn-middle \" target=\"_blank\" href=\"/agents/aggregatePieChart?nodeGroupType="
+									+ nodeGroupType
+									+ "&agentCommandType="
+									+ agentCommandType
+									+ "&rawDataSourceType=ALL_AGENT_DATA&aggrRule=DEFAULT_METRIC\">Pie chart</a>"
+							var button3 = "<a class=\"btn btn-info btn-middle \" target=\"_blank\" href=\"/agents/aggregateMetrics?nodeGroupType="
+									+ nodeGroupType
+									+ "&agentCommandType="
+									+ agentCommandType
+									+ "\">Number only plot</a>"
+							var button4 = "<a class=\"btn btn-info btn-middle \" target=\"_blank\" href=\"/config/editConfig/aggregation\">Edit Aggregation</a>"
+							$('#response_btngroup').children().remove();
+							$("#response_btngroup").append(button1);
+							$("#response_btngroup").append(button2);
+							$("#response_btngroup").append(button3);
+							$("#response_btngroup").append(button4);
+							//console.log("!!!!!!button1: " + button1)
+							//console.log("!!!!!!button2: " + button2)
+
+						});
+
+		wizard.on("submit", function(wizard) {
+			var submitData = {
+				"nodeGroupType" : $("#target_nodes").val(),
+				"agentCommandType" : $("#commands").val()
+			};
+
+			$.ajax({
+				url : "/commands/generateUpdateSendAgentCommandToNodeGroup",
+				type : "POST",
+				data : submitData,
+				success : function() {
+					wizard.submitSuccess(); // displays the success card
+					wizard.hideButtons(); // hides the next and back buttons
+					wizard.updateProgressBar(0); // sets the progress meter to 0
+				},
+
+				error : function(xhr, ajaxOptions, thrownError) {
+					alert(xhr.status);
+					alert(thrownError);
+					wizard.submitError(); // display the error card
+					wizard.hideButtons(); // hides the next and back buttons
+				}
+			});
+
+			/* 		setTimeout(function() {
+			 wizard.trigger("success");
+			 wizard.hideButtons();
+			 wizard._submitting = false;
+			 wizard.showSubmitCard("success");
+			 wizard._updateProgressBar(0);
+			 }, 2000); */
+		});
+		wizard.on("reset", function(wizard) {
+			wizard.setSubtitle("");
+			wizard.el.find("#new-server-fqdn").val("");
+			wizard.el.find("#new-server-name").val("");
+		});
+
+		wizard.el.find(".wizard-success .im-done").click(function() {
+			wizard.reset().close();
+		});
+
+		wizard.el.find(".wizard-success .create-another-server").click(
+				function() {
+					wizard.reset();
+				});
+
+		$(".wizard-group-list").click(function() {
+			alert("Disabled for demo.");
+		});
+
+		$("#open-wizard").click(function() {
+			wizard.show();
+		});
+
+		wizard.show();
+	});
+</script>
+
+
+</body>
+</html>

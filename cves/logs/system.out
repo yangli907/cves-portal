@@ -1,0 +1,155 @@
+Listening for transport dt_socket at address: 8000
+22:26:43,600 INFO  ~ Starting S:\Project\cdaas\rop
+22:26:44,090 WARN  ~ You're running Play! in DEV mode
+22:26:44,169 INFO  ~ Listening for HTTP on port 9000 (Waiting a first request to start) ...
+22:26:50,454 INFO  ~ Application 'rop' is now started !
+22:33:48,379 ERROR ~ 
+
+@6eld5ibcf
+Internal Server Error (500) for request GET /build?type=C++_1204
+
+Execution exception (In /app/controllers/BuildDataProvider.java around line 46)
+MySQLSyntaxErrorException occured : You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '_1204 order by build_timestamp DESC limit 100' at line 1
+
+play.exceptions.JavaExecutionException: You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '_1204 order by build_timestamp DESC limit 100' at line 1
+	at play.mvc.ActionInvoker.invoke(ActionInvoker.java:231)
+	at Invocation.HTTP Request(Play!)
+Caused by: com.mysql.jdbc.exceptions.jdbc4.MySQLSyntaxErrorException: You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '_1204 order by build_timestamp DESC limit 100' at line 1
+	at com.mysql.jdbc.Util.handleNewInstance(Util.java:407)
+	at com.mysql.jdbc.Util.getInstance(Util.java:382)
+	at com.mysql.jdbc.SQLError.createSQLException(SQLError.java:1052)
+	at com.mysql.jdbc.MysqlIO.checkErrorPacket(MysqlIO.java:3593)
+	at com.mysql.jdbc.MysqlIO.checkErrorPacket(MysqlIO.java:3525)
+	at com.mysql.jdbc.MysqlIO.sendCommand(MysqlIO.java:1986)
+	at com.mysql.jdbc.MysqlIO.sqlQueryDirect(MysqlIO.java:2140)
+	at com.mysql.jdbc.ConnectionImpl.execSQL(ConnectionImpl.java:2620)
+	at com.mysql.jdbc.ConnectionImpl.execSQL(ConnectionImpl.java:2570)
+	at com.mysql.jdbc.StatementImpl.executeQuery(StatementImpl.java:1474)
+	at controllers.BuildDataProvider.readDataBase(BuildDataProvider.java:46)
+	at controllers.Build.index(Build.java:14)
+	at play.mvc.ActionInvoker.invokeWithContinuation(ActionInvoker.java:548)
+	at play.mvc.ActionInvoker.invoke(ActionInvoker.java:502)
+	at play.mvc.ActionInvoker.invokeControllerMethod(ActionInvoker.java:478)
+	at play.mvc.ActionInvoker.invokeControllerMethod(ActionInvoker.java:473)
+	at play.mvc.ActionInvoker.invoke(ActionInvoker.java:161)
+	... 1 more
+22:34:40,184 ERROR ~ 
+
+@6eld5ibcg
+Internal Server Error (500) for request GET /build?type=C++_1204
+
+Execution exception (In /app/controllers/BuildDataProvider.java around line 46)
+MySQLSyntaxErrorException occured : You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '_1204 order by build_timestamp DESC limit 100' at line 1
+
+play.exceptions.JavaExecutionException: You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '_1204 order by build_timestamp DESC limit 100' at line 1
+	at play.mvc.ActionInvoker.invoke(ActionInvoker.java:231)
+	at Invocation.HTTP Request(Play!)
+Caused by: com.mysql.jdbc.exceptions.jdbc4.MySQLSyntaxErrorException: You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '_1204 order by build_timestamp DESC limit 100' at line 1
+	at com.mysql.jdbc.Util.handleNewInstance(Util.java:407)
+	at com.mysql.jdbc.Util.getInstance(Util.java:382)
+	at com.mysql.jdbc.SQLError.createSQLException(SQLError.java:1052)
+	at com.mysql.jdbc.MysqlIO.checkErrorPacket(MysqlIO.java:3593)
+	at com.mysql.jdbc.MysqlIO.checkErrorPacket(MysqlIO.java:3525)
+	at com.mysql.jdbc.MysqlIO.sendCommand(MysqlIO.java:1986)
+	at com.mysql.jdbc.MysqlIO.sqlQueryDirect(MysqlIO.java:2140)
+	at com.mysql.jdbc.ConnectionImpl.execSQL(ConnectionImpl.java:2620)
+	at com.mysql.jdbc.ConnectionImpl.execSQL(ConnectionImpl.java:2570)
+	at com.mysql.jdbc.StatementImpl.executeQuery(StatementImpl.java:1474)
+	at controllers.BuildDataProvider.readDataBase(BuildDataProvider.java:46)
+	at controllers.Build.index(Build.java:14)
+	at play.mvc.ActionInvoker.invokeWithContinuation(ActionInvoker.java:548)
+	at play.mvc.ActionInvoker.invoke(ActionInvoker.java:502)
+	at play.mvc.ActionInvoker.invokeControllerMethod(ActionInvoker.java:478)
+	at play.mvc.ActionInvoker.invokeControllerMethod(ActionInvoker.java:473)
+	at play.mvc.ActionInvoker.invoke(ActionInvoker.java:161)
+	... 1 more
+22:35:19,853 ERROR ~ 
+
+@6eld5ibch
+Internal Server Error (500) for request GET /build?type=C++_1204
+
+Execution exception (In /app/controllers/BuildDataProvider.java around line 46)
+MySQLSyntaxErrorException occured : You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '_1204 order by build_timestamp DESC limit 100' at line 1
+
+play.exceptions.JavaExecutionException: You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '_1204 order by build_timestamp DESC limit 100' at line 1
+	at play.mvc.ActionInvoker.invoke(ActionInvoker.java:231)
+	at Invocation.HTTP Request(Play!)
+Caused by: com.mysql.jdbc.exceptions.jdbc4.MySQLSyntaxErrorException: You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '_1204 order by build_timestamp DESC limit 100' at line 1
+	at com.mysql.jdbc.Util.handleNewInstance(Util.java:407)
+	at com.mysql.jdbc.Util.getInstance(Util.java:382)
+	at com.mysql.jdbc.SQLError.createSQLException(SQLError.java:1052)
+	at com.mysql.jdbc.MysqlIO.checkErrorPacket(MysqlIO.java:3593)
+	at com.mysql.jdbc.MysqlIO.checkErrorPacket(MysqlIO.java:3525)
+	at com.mysql.jdbc.MysqlIO.sendCommand(MysqlIO.java:1986)
+	at com.mysql.jdbc.MysqlIO.sqlQueryDirect(MysqlIO.java:2140)
+	at com.mysql.jdbc.ConnectionImpl.execSQL(ConnectionImpl.java:2620)
+	at com.mysql.jdbc.ConnectionImpl.execSQL(ConnectionImpl.java:2570)
+	at com.mysql.jdbc.StatementImpl.executeQuery(StatementImpl.java:1474)
+	at controllers.BuildDataProvider.readDataBase(BuildDataProvider.java:46)
+	at controllers.Build.index(Build.java:14)
+	at play.mvc.ActionInvoker.invokeWithContinuation(ActionInvoker.java:548)
+	at play.mvc.ActionInvoker.invoke(ActionInvoker.java:502)
+	at play.mvc.ActionInvoker.invokeControllerMethod(ActionInvoker.java:478)
+	at play.mvc.ActionInvoker.invokeControllerMethod(ActionInvoker.java:473)
+	at play.mvc.ActionInvoker.invoke(ActionInvoker.java:161)
+	... 1 more
+22:36:31,237 ERROR ~ 
+
+@6eld5ibci
+Internal Server Error (500) for request GET /build?type=C++
+
+Execution exception (In /app/controllers/BuildDataProvider.java around line 46)
+MySQLSyntaxErrorException occured : Unknown column 'C' in 'where clause'
+
+play.exceptions.JavaExecutionException: Unknown column 'C' in 'where clause'
+	at play.mvc.ActionInvoker.invoke(ActionInvoker.java:231)
+	at Invocation.HTTP Request(Play!)
+Caused by: com.mysql.jdbc.exceptions.jdbc4.MySQLSyntaxErrorException: Unknown column 'C' in 'where clause'
+	at com.mysql.jdbc.Util.handleNewInstance(Util.java:407)
+	at com.mysql.jdbc.Util.getInstance(Util.java:382)
+	at com.mysql.jdbc.SQLError.createSQLException(SQLError.java:1052)
+	at com.mysql.jdbc.MysqlIO.checkErrorPacket(MysqlIO.java:3593)
+	at com.mysql.jdbc.MysqlIO.checkErrorPacket(MysqlIO.java:3525)
+	at com.mysql.jdbc.MysqlIO.sendCommand(MysqlIO.java:1986)
+	at com.mysql.jdbc.MysqlIO.sqlQueryDirect(MysqlIO.java:2140)
+	at com.mysql.jdbc.ConnectionImpl.execSQL(ConnectionImpl.java:2620)
+	at com.mysql.jdbc.ConnectionImpl.execSQL(ConnectionImpl.java:2570)
+	at com.mysql.jdbc.StatementImpl.executeQuery(StatementImpl.java:1474)
+	at controllers.BuildDataProvider.readDataBase(BuildDataProvider.java:46)
+	at controllers.Build.index(Build.java:14)
+	at play.mvc.ActionInvoker.invokeWithContinuation(ActionInvoker.java:548)
+	at play.mvc.ActionInvoker.invoke(ActionInvoker.java:502)
+	at play.mvc.ActionInvoker.invokeControllerMethod(ActionInvoker.java:478)
+	at play.mvc.ActionInvoker.invokeControllerMethod(ActionInvoker.java:473)
+	at play.mvc.ActionInvoker.invoke(ActionInvoker.java:161)
+	... 1 more
+22:38:29,283 ERROR ~ 
+
+@6eld5ibcj
+Internal Server Error (500) for request GET /build?type=JAVA_INDEXER
+
+Execution exception (In /app/controllers/BuildDataProvider.java around line 46)
+MySQLSyntaxErrorException occured : Unknown column 'JAVA_INDEXER' in 'where clause'
+
+play.exceptions.JavaExecutionException: Unknown column 'JAVA_INDEXER' in 'where clause'
+	at play.mvc.ActionInvoker.invoke(ActionInvoker.java:231)
+	at Invocation.HTTP Request(Play!)
+Caused by: com.mysql.jdbc.exceptions.jdbc4.MySQLSyntaxErrorException: Unknown column 'JAVA_INDEXER' in 'where clause'
+	at com.mysql.jdbc.Util.handleNewInstance(Util.java:407)
+	at com.mysql.jdbc.Util.getInstance(Util.java:382)
+	at com.mysql.jdbc.SQLError.createSQLException(SQLError.java:1052)
+	at com.mysql.jdbc.MysqlIO.checkErrorPacket(MysqlIO.java:3593)
+	at com.mysql.jdbc.MysqlIO.checkErrorPacket(MysqlIO.java:3525)
+	at com.mysql.jdbc.MysqlIO.sendCommand(MysqlIO.java:1986)
+	at com.mysql.jdbc.MysqlIO.sqlQueryDirect(MysqlIO.java:2140)
+	at com.mysql.jdbc.ConnectionImpl.execSQL(ConnectionImpl.java:2620)
+	at com.mysql.jdbc.ConnectionImpl.execSQL(ConnectionImpl.java:2570)
+	at com.mysql.jdbc.StatementImpl.executeQuery(StatementImpl.java:1474)
+	at controllers.BuildDataProvider.readDataBase(BuildDataProvider.java:46)
+	at controllers.Build.index(Build.java:14)
+	at play.mvc.ActionInvoker.invokeWithContinuation(ActionInvoker.java:548)
+	at play.mvc.ActionInvoker.invoke(ActionInvoker.java:502)
+	at play.mvc.ActionInvoker.invokeControllerMethod(ActionInvoker.java:478)
+	at play.mvc.ActionInvoker.invokeControllerMethod(ActionInvoker.java:473)
+	at play.mvc.ActionInvoker.invoke(ActionInvoker.java:161)
+	... 1 more
