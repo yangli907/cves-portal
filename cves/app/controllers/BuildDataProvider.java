@@ -14,7 +14,7 @@ import java.util.HashMap;
 import java.util.List;
 
 import models.AbstractData;
-import models.build.BuildData;
+import models.build.LocationData;
 
 public class BuildDataProvider implements AbstractDataProvider {
 	private Connection connect = null;
@@ -32,16 +32,12 @@ public class BuildDataProvider implements AbstractDataProvider {
 			Class.forName("com.mysql.jdbc.Driver");
 			// Setup the connection with the DB
 			connect = DriverManager.getConnection(
-					"jdbc:mysql://petools02.phx.qa.ebay.com:8080/cdaas_dev",
-					"cassiniqe", "cdaas");
+					"jdbc:mysql://localhost/cves",
+					"cves", "cves");
 			// Statements allow to issue SQL queries to the database
 			statement = connect.createStatement();
 			// Result set get the result of the SQL query
-			StringBuilder execStat = new StringBuilder("select * from cdaas.cdaas_version_history where build_timestamp>'2013-01-07_13-01-06'");
-			if(filter.get("component")!=null){
-				execStat.append(" and build_type='"+filter.get("component")+"'");
-			}
-			execStat.append(" order by build_timestamp DESC limit 200");
+			StringBuilder execStat = new StringBuilder("select * from cves.location");
 			resultSet = statement
 					.executeQuery(execStat.toString());
 			return writeResultSet(resultSet);
@@ -57,27 +53,17 @@ public class BuildDataProvider implements AbstractDataProvider {
 	 */
 	@Override
 	public <T extends List<AbstractData>,U> T writeResultSet(ResultSet resultSet) throws SQLException, ParseException {
-		T buildList = (T) new ArrayList<AbstractData>();
+		T locationResultSet = (T) new ArrayList<AbstractData>();
 		while (resultSet.next()) {
-			BuildData build = new BuildData();
-			build.setRun_id(resultSet.getInt("run_id"));
-			build.setBuild_type(resultSet.getString("build_type"));
-			build.setBuild_number(resultSet.getString("build_number"));
-			build.setCommit_id(resultSet.getString("commit_id"));
-			Date date = resultSet.getTimestamp("build_timestamp");
-			String dateString = new SimpleDateFormat("MM/dd/yyyy HH:mm:ss a").format(date);
-			build.setBuild_timestamp(dateString);
-			build.setRegression_status(resultSet.getInt("regression_status"));
-			String repoUrl = resultSet.getString("repo_url");
-			String[] tmpRepoArray = repoUrl.split("/");
-			String repoName = tmpRepoArray[tmpRepoArray.length-1];
-			build.setRepository(repoName.subSequence(0, repoName.length()-4).toString());
-			build.setDeploy_to_preprod(resultSet.getInt("deployed_to_preprod"));
-			build.setDeploy_to_prodn(resultSet.getInt("deployed_to_prodn"));
-			build.setDeploy_to_staging(resultSet.getInt("deployed_to_staging"));
-			buildList.add(build);
+			LocationData location = new LocationData();
+			location.setId(resultSet.getInt("id"));
+			location.setUserId(resultSet.getInt("userid"));
+			location.setTimestamp(resultSet.getDate("timestamp"));
+			location.setLongitude(resultSet.getFloat("longitude"));
+			location.setLatitude(resultSet.getFloat("latitude"));
+			locationResultSet.add(location);
 		}
-		return buildList;
+		return locationResultSet;
 	}
 
 	// You need to close the resultSet

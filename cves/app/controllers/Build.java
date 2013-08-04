@@ -3,7 +3,7 @@ package controllers;
 import java.util.HashMap;
 import java.util.List;
 
-import models.build.BuildData;
+import models.build.LocationData;
 import play.mvc.Controller;
 
 public class Build extends Controller {
@@ -12,7 +12,7 @@ public class Build extends Controller {
     	AbstractDataProvider dbhelper = new BuildDataProvider();
     	HashMap<String, String> filter = new HashMap<String,String>();
     	filter.put("component", type);
-    	List<BuildData> buildList = dbhelper.readDataBase(filter);
+    	List<LocationData> buildList = dbhelper.readDataBase(filter);
         render(topnav,buildList);
     }
 }

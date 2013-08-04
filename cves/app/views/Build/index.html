@@ -7,20 +7,13 @@
 		<option>Choose aggregation rule...</option>
 	</select>
 	<hr> -->
-	<h4>Build History</h4>
+	<h4>Localization History</h4>
 	<h5>
-		Choose component:
-		<select data-placeholder="Choose component..." style="width:300px;" class="chzn-select" id="components" >
-			<option>Choose component...</option>
-			<option value="C%2b%2b">C++</option>
-			<option value="C%2b%2b_1204">C++ v12.04</option>
-			<option value="JAVA_INDEXER">Java Indexer</option>
-			<option value="JAVA_FEEDER">Java Feeder</option>
-			<option value="JAVA_DD">Java DD</option>
-			<option value="PROFILES">Profiles</option>
-			<option value="LOGPUSHER">Logpusher</option>
-			<option value="LOGPUSHER_CFG">Logpusher Config</option>
-		</select> 
+		Choose Date:
+			  <div class="input-append date" id="dp3" data-date="12-02-2012" data-date-format="dd-mm-yyyy">
+				<input class="span2" size="16" type="text" value="12-02-2012" readonly>
+				<span class="add-on"><i class="icon-calendar"></i></span>
+			  </div>
 		<p>
 		<a href="/build" class="btn btn-small">Show All</a> 
 		</p>
@@ -30,25 +23,21 @@
 			#{table-declare tableName:'buildTable'/}
 			<thead>
 				<tr>
-					<th>Run #</th>
-					<th>Component</th>
-					<th>Build #</th>
-					<th>Regression status</th>
-					<th>Commit id</th>
-					<th>Build timestamp</th>
-					<th>Deployment status</th>
+					<th>ID</th>
+					<th>UserID</th>
+					<th>Timestamp</th>
+					<th>Longitude</th>
+					<th>Latitude</th>
 				</tr>
 			</thead>
 			<tbody>
 				#{list items:buildList, as:'obj'}
 				<tr>
-					<td>${obj.getRun_id()}</td>
-					<td><span class='opstate'>${obj.getBuild_type()}</span></td>
-					<td><span>${obj.getBuild_number()}</span></td>
-					<td><span  class='status'>${obj.getRegression_status()}</span></td>
-					<td><a target=_blank href="https://github.scm.corp.ebay.com/SBE/${obj.getRepository()}/commit/${obj.getCommit_id()}">${obj.getCommit_id()}</a></td>
-					<td><span>${obj.getBuild_timestamp()}</span></td>
-					<td><span class="inject_deploy">N/A</span></td>
+					<td>${obj.getId()}</td>
+					<td><span>${obj.getUserId()}</span></td>
+					<td><span>${obj.getTimestamp()}</span></td>
+					<td><span>${obj.getLongitude()}</span></td>
+					<td><span>${obj.getLatitude()}</span></td>
 				</tr>
 				#{/list}
 			</tbody>
@@ -57,45 +46,8 @@
 	</div>	
 	<script type="text/javascript" src="http://ajax.aspnetcdn.com/ajax/jquery.dataTables/1.9.4/jquery.dataTables.js"></script>
 	<script>
-	$(document).ready(function(){
-		$('#buildTable span.inject_deploy').each(function(){
-	        if (${obj.getDeploy_to_prodn()} == '1') {
-	        	$(this).addClass("alert-success");
-	            $(this).text('Production');
-	        }
-	        else if(${obj.getDeploy_to_preprod()} == '1'){
-	        	$(this).addClass("alert-success");
-	            $(this).text('Preprod');
-	        }
-	        else if(${obj.getDeploy_to_staging()} == '1'){
-	        	$(this).addClass("alert-success");
-	            $(this).text('Staging');
-	        }
-	        else{
-	        	$(this).addClass("alert-warning");
-	        }
-	    });	
-		$('#buildTable span.status').each(function(){
-	        if ($(this).text() == '1') {
-	        	$(this).addClass("label label-success");
-	            $(this).text('pass');
-	        }
-	        else if ($(this).text() == '2') {
-	        	$(this).addClass("label label-warning");
-	            $(this).text('fail');
-	        }
-	        else{
-	        	$(this).addClass("label label-info");
-	            $(this).text('N/A');
-	        }
-	    });	
+	$(document).ready(function() {
+	    $('#dp3').datepicker();
 	});
-
-    $('#components').change(function() {
-    	var selectedComponent = $(this).find("option:selected").val();
-    	if (!window.location.origin)
-    	     window.location.origin = window.location.protocol+"//"+window.location.host;
-    	window.location = window.location.origin+"/build?type="+selectedComponent;
-    });
 </script>
 	#{include 'Application/footer.html'/}
